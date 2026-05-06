@@ -1,0 +1,26 @@
+<div class="task-detail-container">
+  @if (task) {
+    <div class="detail-header">
+      <button mat-icon-button (click)="onBack()" aria-label="Back">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>{{ task.title }}</h1>
+    </div>
+
+    <mat-card>
+      <mat-card-content>
+        <div class="detail-meta">
+          <span class="status-badge status-{{ task.status }}">{{ statusLabel(task.status) }}</span>
+          <span class="due-date">Due: {{ task.dueDate }}</span>
+        </div>
+        <p class="task-description">{{ task.description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onEdit()">Edit</button>
+        <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  } @else {
+    <p class="not-found">Task not found.</p>
+  }
+</div>

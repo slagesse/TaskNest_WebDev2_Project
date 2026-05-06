@@ -1,0 +1,38 @@
+<div class="task-list-container">
+  <div class="task-list-header">
+    <h1>Tasks</h1>
+    <a mat-raised-button color="primary" routerLink="/tasks/create">+ New Task</a>
+  </div>
+
+  <div class="filter-bar">
+    @for (f of filters; track f.value) {
+      <button mat-stroked-button [class.active]="activeFilter === f.value" (click)="setFilter(f.value)">
+        {{ f.label }}
+      </button>
+    }
+  </div>
+
+  @if (filteredTasks.length > 0) {
+    <div class="task-cards">
+      @for (task of filteredTasks; track task.id) {
+        <mat-card>
+          <mat-card-content>
+            <div class="task-card-meta">
+              <strong>{{ task.title }}</strong>
+              <span class="status-badge status-{{ task.status }}">{{ statusLabel(task.status) }}</span>
+            </div>
+            <p class="task-description">{{ task.description }}</p>
+            <p class="task-due">Due: {{ task.dueDate }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <a mat-button color="primary" [routerLink]="['/tasks', task.id]">View</a>
+            <a mat-button [routerLink]="['/tasks/edit', task.id]">Edit</a>
+            <button mat-button color="warn" (click)="onDelete(task.id)">Delete</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <p class="empty-state">No tasks found for this filter.</p>
+  }
+</div>

@@ -1,17 +1,32 @@
 mat-toolbar {
-    background-color: rgb(88, 88, 203);
+  background-color: #1565c0;
+  color: white;
 }
 
-ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  margin-right: auto;
+  letter-spacing: 0.05em;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-    padding: 10px;
+nav {
+  display: flex;
+  gap: 0.25rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: white !important;
+}
+
+nav a.active-link {
+  font-weight: 600;
+  opacity: 1;
+}
+
+nav a:not(.active-link) {
+  opacity: 0.8;
 }

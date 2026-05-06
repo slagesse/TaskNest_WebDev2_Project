@@ -1,6 +1,8 @@
-<mat-toolbar>
-    <span><a routerLink="/">My App</a></span>
-    <ul>
-        <li><a routerLink="/create">Create Post</a></li>
-    </ul>
+<mat-toolbar color="primary">
+  <a class="brand" routerLink="/">TaskNest</a>
+  <nav>
+    <a mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+    <a mat-button routerLink="/tasks" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Tasks</a>
+    <a mat-button routerLink="/tasks/create">+ New Task</a>
+  </nav>
 </mat-toolbar>

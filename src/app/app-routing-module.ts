@@ -1,22 +1,20 @@
-import { Component, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostList } from './post/post-list/post-list';
-import { MostCreate } from './post/most-create/most-create';
-
+import { Dashboard } from './dashboard/dashboard';
+import { TaskList } from './task/task-list/task-list';
+import { TaskForm } from './task/task-form/task-form';
+import { TaskDetail } from './task/task-detail/task-detail';
 
 const routes: Routes = [
-  {path: '', component: PostList},
-  {path: 'create', component: MostCreate},
-  {path: 'edit/:postId', component: MostCreate}
+  { path: '', component: Dashboard },
+  { path: 'tasks', component: TaskList },
+  { path: 'tasks/create', component: TaskForm },
+  { path: 'tasks/edit/:id', component: TaskForm },
+  { path: 'tasks/:id', component: TaskDetail },
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    //CommonModule,
-    RouterModule.forRoot(routes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
