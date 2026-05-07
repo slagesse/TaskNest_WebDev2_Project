@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "backend": "nodemon --exec tsx backend/src/index.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -55,6 +56,7 @@
     "@types/uuid": "^10.0.0",
     "jsdom": "^27.1.0",
     "nodemon": "^3.1.14",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
