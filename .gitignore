@@ -6,6 +6,7 @@
 
 # Node
 /node_modules
+backend/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -47,3 +48,6 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Backend logs
+backend/logs/*.log
