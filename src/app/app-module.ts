@@ -17,10 +17,11 @@ import { Dashboard } from './dashboard/dashboard';
 import { TaskList } from './task/task-list/task-list';
 import { TaskForm } from './task/task-form/task-form';
 import { TaskDetail } from './task/task-detail/task-detail';
+import { CategoryList } from './category/category-list/category-list';
 import { AppRoutingModule } from './app-routing-module';
 
 @NgModule({
-  declarations: [App, Header, Dashboard, TaskList, TaskForm, TaskDetail],
+  declarations: [App, Header, Dashboard, TaskList, TaskForm, TaskDetail, CategoryList],
   imports: [
     BrowserModule,
     FormsModule,

@@ -47,6 +47,22 @@ describe('InternalError', () => {
   });
 });
 
+describe('CategoryNotFoundError', () => {
+  it('is a GraphQLError with the correct message', () => {
+    const err = new errors.CategoryNotFoundError('cat-42');
+    expect(err).toBeInstanceOf(GraphQLError);
+    expect(err.message).toBe('Category not found: cat-42');
+  });
+});
+
+describe('DefaultCategoryError', () => {
+  it('is a GraphQLError with the correct message', () => {
+    const err = new errors.DefaultCategoryError();
+    expect(err).toBeInstanceOf(GraphQLError);
+    expect(err.message).toBe('Cannot delete a default category');
+  });
+});
+
 describe('logError', () => {
   it('returns a UUID string', async () => {
     const id = await errors.logError(new Error('boom'));
@@ -101,6 +117,18 @@ describe('formatError', () => {
     const err = new errors.InternalError('uuid-1');
     const result = errors.formatError(err, err);
     expect(result.message).toBe('Internal error [uuid-1] — this has been logged');
+  });
+
+  it('passes through CategoryNotFoundError as-is', () => {
+    const err = new errors.CategoryNotFoundError('cat-1');
+    const result = errors.formatError(err, err);
+    expect(result.message).toBe('Category not found: cat-1');
+  });
+
+  it('passes through DefaultCategoryError as-is', () => {
+    const err = new errors.DefaultCategoryError();
+    const result = errors.formatError(err, err);
+    expect(result.message).toBe('Cannot delete a default category');
   });
 
   it('replaces unknown errors with InternalError and logs them', async () => {

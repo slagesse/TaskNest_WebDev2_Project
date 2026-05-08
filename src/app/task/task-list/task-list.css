@@ -41,6 +41,26 @@
   margin-bottom: 0.75rem;
 }
 
+.task-card-badges {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.category-label {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 12px;
+  background-color: #e8eaf6;
+  color: #3949ab;
+  font-weight: 500;
+}
+
+.category-filter-field {
+  margin-left: auto;
+  width: 200px;
+}
+
 .status-badge {
   font-size: 0.75rem;
   padding: 0.25rem 0.75rem;

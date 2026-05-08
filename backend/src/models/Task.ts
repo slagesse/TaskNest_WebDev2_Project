@@ -5,6 +5,7 @@ const taskSchema = new mongoose.Schema({
   description: { type: String },
   status: { type: String, enum: ['TODO', 'DONE'], default: 'TODO' },
   dueDate: { type: String },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
 });
 
 // virtual `.id` is provided automatically by Mongoose (string form of _id)

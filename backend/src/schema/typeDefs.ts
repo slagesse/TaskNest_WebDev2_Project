@@ -1,10 +1,23 @@
 export const typeDefs = `#graphql
+  type Category {
+    id: ID!
+    title: String!
+    description: String
+    isDefault: Boolean!
+  }
+
+  input CategoryInput {
+    title: String!
+    description: String
+  }
+
   type Task {
     id: ID!
     title: String!
     description: String
     status: TaskStatus!
     dueDate: String
+    category: Category
   }
 
   enum TaskStatus { TODO DONE }
@@ -14,6 +27,7 @@ export const typeDefs = `#graphql
     description: String
     status: TaskStatus
     dueDate: String
+    category: ID
   }
 
   enum SortOrder { asc desc }
@@ -47,11 +61,15 @@ export const typeDefs = `#graphql
     tasks(where: TaskWhereInput, orderBy: TaskOrderByInput): [Task!]!
     task(id: ID!): Task
     total(where: TaskWhereInput): Int!
+    categories: [Category!]!
+    category(id: ID!): Category
   }
 
   type Mutation {
     createTask(input: TaskInput!): Task!
     updateTask(id: ID!, input: TaskInput!): Task!
     deleteTask(id: ID!): Boolean!
+    createCategory(input: CategoryInput!): Category!
+    deleteCategory(id: ID!): Boolean!
   }
 `;

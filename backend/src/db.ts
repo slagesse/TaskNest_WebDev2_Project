@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Category from './models/Category';
 
 export async function connectDB(): Promise<void> {
   try {
@@ -14,4 +15,12 @@ export async function connectDB(): Promise<void> {
   mongoose.connection.on('disconnected', () => {
     console.error('MongoDB disconnected — driver will auto-reconnect');
   });
+}
+
+export async function seedDefaultCategories(): Promise<void> {
+  await Category.findOneAndUpdate(
+    { isDefault: true },
+    { title: 'Personal', isDefault: true },
+    { upsert: true },
+  );
 }

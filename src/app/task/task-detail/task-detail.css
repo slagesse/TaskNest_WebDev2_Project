@@ -33,6 +33,15 @@
 .status-todo { background-color: #e0e0e0; color: #424242; }
 .status-done { background-color: #c8e6c9; color: #2e7d32; }
 
+.category-label {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 12px;
+  background-color: #e8eaf6;
+  color: #3949ab;
+  font-weight: 500;
+}
+
 .due-date {
   color: #666;
   font-size: 0.9rem;
