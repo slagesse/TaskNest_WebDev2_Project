@@ -67,7 +67,7 @@ import { map } from 'rxjs';
 const toBackendStatus = (s: Task['status']) => (s === 'done' ? 'DONE' : 'TODO');
 const toFrontendStatus = (s: string): Task['status'] => (s === 'DONE' ? 'done' : 'todo');
 
-const GRAPHQL_URL = 'http://localhost:4000/graphql';
+const GRAPHQL_URL = '/graphql';
 const mapTask = (t: any): Task => ({...t, status: toFrontendStatus(t.status)});
 const TASK_FIELDS = `id title description status dueDate`;
 
@@ -134,9 +134,12 @@ export class TaskService {
 
   loadTasks() {
     const query = `query { tasks {${TASK_FIELDS}} }`;
-    this.gql<{ tasks: any[] }>(query).subscribe((data) => {
-      this.tasks = data.tasks.map(mapTask);
-      this.tasksUpdated.next([...this.tasks]);
+    this.gql<{ tasks: any[] }>(query).subscribe({
+      next: (data) => {
+        this.tasks = data.tasks.map(mapTask);
+        this.tasksUpdated.next([...this.tasks]);
+      },
+      error: (err) => console.error('Failed to load tasks:', err),
     });
   }
 
