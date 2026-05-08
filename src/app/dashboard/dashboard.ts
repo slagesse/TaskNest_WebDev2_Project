@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Task } from '../task/task.model';
 import { TaskService } from '../task/task.service';
@@ -21,6 +21,10 @@ export class Dashboard implements OnInit, OnDestroy {
     return this.tasks.filter((t) => t.status === 'done').length;
   }
 
+  get inProgress() {
+    return this.tasks.filter((t) => t.status === 'in-progress').length;
+  }
+
   get todo() {
     return this.tasks.filter((t) => t.status === 'todo').length;
   }
@@ -30,11 +34,12 @@ export class Dashboard implements OnInit, OnDestroy {
     return this.tasks.filter((t) => t.status !== 'done' && t.dueDate < today).length;
   }
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.sub = this.taskService.getTaskUpdateListener().subscribe((tasks) => {
       this.tasks = tasks;
+      this.cdr.detectChanges();
     });
   }
 
