@@ -30,7 +30,6 @@ export class TaskDetail implements OnInit {
   statusLabel(status: TaskStatus): string {
     const map: Record<TaskStatus, string> = {
       todo: 'To Do',
-      'in-progress': 'In Progress',
       done: 'Done',
     };
     return map[status];

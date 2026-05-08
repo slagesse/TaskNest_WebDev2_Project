@@ -44,7 +44,6 @@
 }
 
 .done .stat-number { color: #388e3c; }
-.in-progress .stat-number { color: #1976d2; }
 .todo .stat-number { color: #757575; }
 .overdue .stat-number { color: #d32f2f; }
 
