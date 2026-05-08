@@ -1,59 +1,102 @@
 # TaskNest
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+TaskNest is a full-stack task management web application built with the MEAN stack (MongoDB, Express.js, Angular, Node.js). Users can create, view, edit, and delete tasks with titles, descriptions, due dates, and status tracking. A live dashboard shows a real-time summary of total, completed, in-progress, to-do, and overdue task counts. The backend is powered by a GraphQL API (Apollo Server) and stores data across two Mongoose models.
 
-## Development server
+**Team:** Powerful Foxes
+- **Shane LaGesse** (Angular Components, Dashboard, Task List)
+- **Christian Fluharty** (Backend, Express Server, API Endpoints)
+- **Kene Maduabum** (MongoDB, Mongoose Schemas, Database Layer)
+- **Isaiah Shavers** (Angular Services, GraphQL Integration, Angular Material UI)
+- **Mohamed Lehmidi** (Deployment, Environment Configuration, Presentation)
 
-To start a local development server, run:
+**Deployment link:** `https://task-master-e34938e0d659.herokuapp.com/`
 
-```bash
-ng serve
+**YouTube presentation link:** `[your YouTube link here]`
+
+---
+
+## Technology Breakdown
+
+**Frontend**
+- Angular 21 with TypeScript
+- Angular Material (UI component library)
+- RxJS with BehaviorSubject for reactive state management
+- Angular Router for client-side navigation
+- Reactive Forms for task creation and editing
+
+**Backend**
+- Node.js with Express 5
+- Apollo Server 5 with GraphQL
+- Mongoose 9 for MongoDB object modeling
+- dotenv for environment variable management
+
+**Database**
+- MongoDB Atlas
+- Two Mongoose models: `Task` and `ErrorLog`
+
+---
+
+## Project Structure
+```
+TaskNest/
+├── backend/
+│   └── src/
+│       ├── models/        # Mongoose schemas (Task, ErrorLog)
+│       ├── schema/        # GraphQL typeDefs, resolvers, filters
+│       ├── db.ts          # MongoDB connection
+│       ├── errors.ts      # Custom error classes and logging
+│       ├── graphql.ts     # Apollo Server setup
+│       └── index.ts       # Backend entry point (port 4000)
+├── src/                   # Angular frontend
+│   └── app/
+│       ├── dashboard/     # Dashboard component
+│       ├── header/        # Navigation bar component
+│       └── task/          # TaskList, TaskForm, TaskDetail components + service
+└── server.js              # Static file server for deployed Angular build
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Prerequisites
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+You must have the following installed:
+1. Node.js (v18 or higher)
+2. npm (included with Node.js)
+3. A MongoDB Atlas account with a project and connection string
 
-```bash
-ng generate component component-name
+---
+
+## Installation and Setup
+
+### Step 1: Install Dependencies
+
+From the root `TaskNest/` directory, run:
+
+```
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Step 2: Environment Configuration
 
-```bash
-ng generate --help
+Create a `.env` file in the `TaskNest/` directory:
+```
+MONGODB_URI=your_mongodb_atlas_connection_string
+PORT=3000
 ```
 
-## Building
+### Step 3: Run the Backend
 
-To build the project run:
-
-```bash
-ng build
+```
+npm run backend
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This starts the GraphQL API server at `http://localhost:3000/graphql`.
 
-## Running unit tests
+### Step 4: Run the Frontend
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+In a separate terminal window:
+```
+npm run dev
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This starts the Angular development server at `http://localhost:4200`.
