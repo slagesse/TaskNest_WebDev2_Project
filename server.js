@@ -7,8 +7,8 @@ const distPath = path.join(__dirname, 'dist', 'ourAngularFirst', 'browser');
 const app = express();
 
 // ── API routes (wire in backend/app.js when backend is ready) ─────────────────
-// const apiRouter = require('./backend/app');
-// app.use('/api', apiRouter);
+const apiRouter = require('./backend/app');
+app.use('/api', apiRouter);
 
 // ── Angular static files ───────────────────────────────────────────────────────
 app.use(express.static(distPath));
