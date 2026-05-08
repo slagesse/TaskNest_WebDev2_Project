@@ -1,4 +1,4 @@
-import { GraphQLError } from 'graphql';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
