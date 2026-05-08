@@ -21,10 +21,6 @@ export class Dashboard implements OnInit, OnDestroy {
     return this.tasks.filter((t) => t.status === 'done').length;
   }
 
-  get inProgress() {
-    return this.tasks.filter((t) => t.status === 'in-progress').length;
-  }
-
   get todo() {
     return this.tasks.filter((t) => t.status === 'todo').length;
   }
@@ -41,6 +37,7 @@ export class Dashboard implements OnInit, OnDestroy {
       this.tasks = tasks;
       this.cdr.detectChanges();
     });
+    this.taskService.loadTasks();
   }
 
   ngOnDestroy() {
