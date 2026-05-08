@@ -11,7 +11,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "nodemon app.js",
+    "server": "nodemon server.js",
     "test:backend": "vitest run --config backend/vitest.config.ts"
   },
   "prettier": {
