@@ -10,6 +10,16 @@
         {{ f.label }}
       </button>
     }
+
+    <mat-form-field appearance="outline" class="category-filter-field">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="activeCategoryId" (ngModelChange)="setCategoryFilter($event)">
+        <mat-option value="all">All Categories</mat-option>
+        @for (cat of categories; track cat.id) {
+          <mat-option [value]="cat.id">{{ cat.title }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </div>
 
   @if (filteredTasks.length > 0) {
@@ -19,7 +29,12 @@
           <mat-card-content>
             <div class="task-card-meta">
               <strong>{{ task.title }}</strong>
-              <span class="status-badge status-{{ task.status }}">{{ statusLabel(task.status) }}</span>
+              <div class="task-card-badges">
+                @if (task.category) {
+                  <span class="category-label">{{ task.category.title }}</span>
+                }
+                <span class="status-badge status-{{ task.status }}">{{ statusLabel(task.status) }}</span>
+              </div>
             </div>
             <p class="task-description">{{ task.description }}</p>
             <p class="task-due">Due: {{ task.dueDate }}</p>

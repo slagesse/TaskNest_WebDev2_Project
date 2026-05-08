@@ -11,6 +11,9 @@
       <mat-card-content>
         <div class="detail-meta">
           <span class="status-badge status-{{ task.status }}">{{ statusLabel(task.status) }}</span>
+          @if (task.category) {
+            <span class="category-label">{{ task.category.title }}</span>
+          }
           <span class="due-date">Due: {{ task.dueDate }}</span>
         </div>
         <p class="task-description">{{ task.description }}</p>

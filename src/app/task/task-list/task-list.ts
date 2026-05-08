@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Task, TaskStatus } from '../task.model';
 import { TaskService } from '../task.service';
+import { Category } from '../../category/category.model';
+import { CategoryService } from '../../category/category.service';
 
 type Filter = 'all' | TaskStatus;
 
@@ -15,7 +17,10 @@ export class TaskList implements OnInit, OnDestroy {
   allTasks: Task[] = [];
   filteredTasks: Task[] = [];
   activeFilter: Filter = 'all';
-  private sub!: Subscription;
+  activeCategoryId = 'all';
+  categories: Category[] = [];
+  private taskSub!: Subscription;
+  private categorySub!: Subscription;
 
   filters: { value: Filter; label: string }[] = [
     { value: 'all', label: 'All' },
@@ -23,18 +28,25 @@ export class TaskList implements OnInit, OnDestroy {
     { value: 'done', label: 'Done' },
   ];
 
-  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private taskService: TaskService,
+    private categoryService: CategoryService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
-    /*this.allTasks = this.taskService.getTasks();
-    this.applyFilter();*/
-
-    this.sub = this.taskService.getTaskUpdateListener().subscribe((tasks) => {
+    this.taskSub = this.taskService.getTaskUpdateListener().subscribe((tasks) => {
       this.allTasks = tasks;
       this.applyFilter();
       this.cdr.detectChanges();
     });
     this.taskService.loadTasks();
+
+    this.categorySub = this.categoryService.getCategoryUpdateListener().subscribe((cats) => {
+      this.categories = cats;
+      this.cdr.detectChanges();
+    });
+    this.categories = this.categoryService.getCategories();
   }
 
   setFilter(filter: Filter) {
@@ -42,12 +54,24 @@ export class TaskList implements OnInit, OnDestroy {
     this.applyFilter();
   }
 
+  setCategoryFilter(categoryId: string) {
+    this.activeCategoryId = categoryId;
+    this.applyFilter();
+    this.cdr.detectChanges();
+  }
+
   private applyFilter() {
-    if (this.activeFilter === 'all') {
-      this.filteredTasks = [...this.allTasks];
-    } else {
-      this.filteredTasks = this.allTasks.filter((t) => t.status === this.activeFilter);
+    let tasks = [...this.allTasks];
+
+    if (this.activeFilter !== 'all') {
+      tasks = tasks.filter((t) => t.status === this.activeFilter);
     }
+
+    if (this.activeCategoryId !== 'all') {
+      tasks = tasks.filter((t) => t.category?.id === this.activeCategoryId);
+    }
+
+    this.filteredTasks = tasks;
   }
 
   onDelete(id: string) {
@@ -63,6 +87,7 @@ export class TaskList implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.taskSub.unsubscribe();
+    this.categorySub.unsubscribe();
   }
 }

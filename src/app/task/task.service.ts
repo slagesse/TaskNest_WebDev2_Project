@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Task } from './task.model';
+import { Task, TaskInput } from './task.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 
@@ -8,8 +8,8 @@ const toBackendStatus = (s: Task['status']) => (s === 'done' ? 'DONE' : 'TODO');
 const toFrontendStatus = (s: string): Task['status'] => (s === 'DONE' ? 'done' : 'todo');
 
 const GRAPHQL_URL = 'http://localhost:4000/graphql';
-const mapTask = (t: any): Task => ({...t, status: toFrontendStatus(t.status)});
-const TASK_FIELDS = `id title description status dueDate`;
+const mapTask = (t: any): Task => ({ ...t, status: toFrontendStatus(t.status), category: t.category ?? undefined });
+const TASK_FIELDS = `id title description status dueDate category { id title }`;
 
 
 @Injectable({ providedIn: 'root' })
@@ -33,34 +33,22 @@ export class TaskService {
     return this.tasks.find((t) => t.id === id);
   }
 
-  addTask(task: Omit<Task, 'id'>) {
+  addTask(task: TaskInput) {
     const mutation = `
       mutation CreateTask($input: TaskInput!) {
         createTask(input: $input) { ${TASK_FIELDS} }
-        }`;
-    this.gql(mutation, { input: {...task, status: toBackendStatus(task.status)}})
+      }`;
+    this.gql(mutation, { input: { ...task, status: toBackendStatus(task.status) } })
       .subscribe(() => this.loadTasks());
   }
-    /*const newTask: Task = {
-      ...task,
-      id: Date.now().toString(),
-    };
-    this.tasks.push(newTask);
-    this.tasksUpdated.next([...this.tasks]);
-  } */
 
-  updateTask(id: string, updates: Omit<Task, 'id'>) {
+  updateTask(id: string, updates: TaskInput) {
     const mutation = `
       mutation UpdateTask($id: ID!, $input: TaskInput!) {
-        updateTask(id: $id, input: $input) {${TASK_FIELDS}}
+        updateTask(id: $id, input: $input) { ${TASK_FIELDS} }
       }`;
-    this.gql(mutation, { id, input: {...updates, status: toBackendStatus(updates.status)}})
+    this.gql(mutation, { id, input: { ...updates, status: toBackendStatus(updates.status) } })
       .subscribe(() => this.loadTasks());
-    /*const idx = this.tasks.findIndex((t) => t.id === id);
-    if (idx >= 0) {
-      this.tasks[idx] = { id, ...updates };
-      this.tasksUpdated.next([...this.tasks]);
-    }*/
   }
 
   deleteTask(id: string) {

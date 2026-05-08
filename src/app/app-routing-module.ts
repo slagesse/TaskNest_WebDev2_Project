@@ -4,6 +4,7 @@ import { Dashboard } from './dashboard/dashboard';
 import { TaskList } from './task/task-list/task-list';
 import { TaskForm } from './task/task-form/task-form';
 import { TaskDetail } from './task/task-detail/task-detail';
+import { CategoryList } from './category/category-list/category-list';
 
 const routes: Routes = [
   { path: '', component: Dashboard },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'tasks/create', component: TaskForm },
   { path: 'tasks/edit/:id', component: TaskForm },
   { path: 'tasks/:id', component: TaskDetail },
+  { path: 'categories', component: CategoryList },
 ];
 
 @NgModule({

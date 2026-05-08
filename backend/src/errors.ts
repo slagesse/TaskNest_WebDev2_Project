@@ -31,6 +31,20 @@ export class InternalError extends GraphQLError {
   }
 }
 
+export class CategoryNotFoundError extends GraphQLError {
+  constructor(id: string) {
+    super(`Category not found: ${id}`);
+    Object.defineProperty(this, 'name', { value: 'CategoryNotFoundError' });
+  }
+}
+
+export class DefaultCategoryError extends GraphQLError {
+  constructor() {
+    super('Cannot delete a default category');
+    Object.defineProperty(this, 'name', { value: 'DefaultCategoryError' });
+  }
+}
+
 export async function logError(
   error: Error,
   operation?: string,
@@ -59,7 +73,7 @@ export async function logError(
   return errorId;
 }
 
-const KNOWN_ERRORS = [TaskNotFoundError, InvalidIdError, InternalError];
+const KNOWN_ERRORS = [TaskNotFoundError, InvalidIdError, InternalError, CategoryNotFoundError, DefaultCategoryError];
 
 export function formatError(
   formattedError: GraphQLError,

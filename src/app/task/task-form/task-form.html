@@ -7,17 +7,13 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Title</mat-label>
           <input matInput formControlName="title" placeholder="Task title" />
-          @if (form.get('title')?.invalid && form.get('title')?.touched) {
-            <mat-error>Title is required (min 3 characters).</mat-error>
-          }
+          <mat-error>Title is required (min 3 characters).</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Description</mat-label>
           <textarea matInput formControlName="description" rows="4" placeholder="Describe the task"></textarea>
-          @if (form.get('description')?.invalid && form.get('description')?.touched) {
-            <mat-error>Description is required.</mat-error>
-          }
+          <mat-error>Description is required.</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
@@ -32,9 +28,17 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Due Date</mat-label>
           <input matInput type="date" formControlName="dueDate" />
-          @if (form.get('dueDate')?.invalid && form.get('dueDate')?.touched) {
-            <mat-error>Due date is required.</mat-error>
-          }
+          <mat-error>Due date is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option [value]="null">None</mat-option>
+            @for (cat of categories; track cat.id) {
+              <mat-option [value]="cat.id">{{ cat.title }}</mat-option>
+            }
+          </mat-select>
         </mat-form-field>
 
         <div class="form-actions">
