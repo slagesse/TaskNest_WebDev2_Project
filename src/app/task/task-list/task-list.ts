@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Task, TaskStatus } from '../task.model';
 import { TaskService } from '../task.service';
@@ -20,15 +20,20 @@ export class TaskList implements OnInit, OnDestroy {
   filters: { value: Filter; label: string }[] = [
     { value: 'all', label: 'All' },
     { value: 'todo', label: 'To Do' },
+    { value: 'in-progress', label: 'In Progress' },
     { value: 'done', label: 'Done' },
   ];
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    /*this.allTasks = this.taskService.getTasks();
+    this.applyFilter();*/
+
     this.sub = this.taskService.getTaskUpdateListener().subscribe((tasks) => {
       this.allTasks = tasks;
       this.applyFilter();
+      this.cdr.detectChanges();
     });
   }
 
@@ -52,6 +57,7 @@ export class TaskList implements OnInit, OnDestroy {
   statusLabel(status: TaskStatus): string {
     const map: Record<TaskStatus, string> = {
       todo: 'To Do',
+      'in-progress': 'In Progress',
       done: 'Done',
     };
     return map[status];
