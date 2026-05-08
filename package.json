@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
+    "dev": "ng serve",
     "dev-backend": "nodemon --exec tsx backend/src/index.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "server": "nodemon server.js",
+    "heroku-postbuild": "ng build",
     "test:backend": "vitest run --config backend/vitest.config.ts"
   },
   "prettier": {
