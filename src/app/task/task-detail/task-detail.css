@@ -31,7 +31,6 @@
 }
 
 .status-todo { background-color: #e0e0e0; color: #424242; }
-.status-in-progress { background-color: #bbdefb; color: #1565c0; }
 .status-done { background-color: #c8e6c9; color: #2e7d32; }
 
 .due-date {
