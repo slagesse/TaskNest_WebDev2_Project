@@ -62,9 +62,9 @@ export async function logError(
 const KNOWN_ERRORS = [TaskNotFoundError, InvalidIdError, InternalError];
 
 export function formatError(
-  formattedError: GraphQLError,
+  formattedError: GraphQLFormattedError,
   error: unknown,
-): GraphQLError {
+): GraphQLFormattedError {
   // Our own safe errors — pass through as-is
   if (KNOWN_ERRORS.some((E) => error instanceof E)) return formattedError;
 
