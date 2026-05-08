@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Task } from '../task/task.model';
 import { TaskService } from '../task/task.service';
 
@@ -8,8 +9,9 @@ import { TaskService } from '../task/task.service';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, OnDestroy {
   tasks: Task[] = [];
+  private sub!: Subscription;
 
   get total() {
     return this.tasks.length;
@@ -31,6 +33,12 @@ export class Dashboard implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit() {
-    this.tasks = this.taskService.getTasks();
+    this.sub = this.taskService.getTaskUpdateListener().subscribe((tasks) => {
+      this.tasks = tasks;
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

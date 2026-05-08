@@ -26,9 +26,6 @@ export class TaskList implements OnInit, OnDestroy {
   constructor(private taskService: TaskService) {}
 
   ngOnInit() {
-    this.allTasks = this.taskService.getTasks();
-    this.applyFilter();
-
     this.sub = this.taskService.getTaskUpdateListener().subscribe((tasks) => {
       this.allTasks = tasks;
       this.applyFilter();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Task } from './task.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
@@ -76,7 +76,7 @@ const TASK_FIELDS = `id title description status dueDate`;
 export class TaskService {
   //private tasks: Task[] = [...SEED_TASKS];
   private tasks: Task[] = [];
-  private tasksUpdated = new Subject<Task[]>();
+  private tasksUpdated = new BehaviorSubject<Task[]>([]);
 
   constructor(private http: HttpClient){
     this.loadTasks();
