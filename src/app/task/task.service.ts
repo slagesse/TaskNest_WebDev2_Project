@@ -67,7 +67,7 @@ import { map } from 'rxjs';
 const toBackendStatus = (s: Task['status']) => (s === 'done' ? 'DONE' : 'TODO');
 const toFrontendStatus = (s: string): Task['status'] => (s === 'DONE' ? 'done' : 'todo');
 
-const GRAPHQL_URL = /graphql';
+const GRAPHQL_URL = '/graphql';
 const mapTask = (t: any): Task => ({...t, status: toFrontendStatus(t.status)});
 const TASK_FIELDS = `id title description status dueDate`;
 
