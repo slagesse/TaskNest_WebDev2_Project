@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Task, TaskStatus } from '../task.model';
 import { TaskService } from '../task.service';
@@ -24,15 +24,16 @@ export class TaskList implements OnInit, OnDestroy {
     { value: 'done', label: 'Done' },
   ];
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.allTasks = this.taskService.getTasks();
-    this.applyFilter();
+    /*this.allTasks = this.taskService.getTasks();
+    this.applyFilter();*/
 
     this.sub = this.taskService.getTaskUpdateListener().subscribe((tasks) => {
       this.allTasks = tasks;
       this.applyFilter();
+      this.cdr.detectChanges();
     });
   }
 
