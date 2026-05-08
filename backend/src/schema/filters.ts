@@ -59,10 +59,10 @@ export function buildMongooseFilter(where: TaskWhereInput | undefined): Record<s
   return filter;
 }
 
-export function buildMongooseSort(orderBy: TaskOrderByInput | undefined): Record<string, number> {
+export function buildMongooseSort(orderBy: TaskOrderByInput | undefined): Record<string, 1 | -1> {
   if (!orderBy) return {};
 
-  const sort: Record<string, number> = {};
+  const sort: Record<string, 1 | -1> = {};
   const fields = ['title', 'status', 'dueDate'] as const;
 
   for (const field of fields) {
