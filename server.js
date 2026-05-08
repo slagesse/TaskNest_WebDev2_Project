@@ -66,8 +66,8 @@ function safeLogLine(req, statusCode) {
 // SERVER EVENT HANDLERS
 // ============================================================================
 
-const onListening = () => {
-  const addr = server.address();
+const onListening = function() {
+  const addr = this.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 };
