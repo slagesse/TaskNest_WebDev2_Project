@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "heroku-postbuild": "ng build",
+    "heroku-postbuild": "ng build && npx tsc -p backend/tsconfig.json",
     "dev": "ng serve",
     "backend": "nodemon --exec tsx backend/src/index.ts",
     "build": "ng build",
