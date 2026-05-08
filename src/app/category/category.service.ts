@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Category } from './category.model';
 
-const GRAPHQL_URL = 'http://localhost:4000/graphql';
+const GRAPHQL_URL = '/graphql';
 const CATEGORY_FIELDS = `id title description isDefault`;
 
 @Injectable({ providedIn: 'root' })
