@@ -11,7 +11,7 @@ TaskNest is a full-stack task management web application built with the MEAN sta
 
 **Deployment link:** `https://task-master-e34938e0d659.herokuapp.com/`
 
-**YouTube presentation link:** `[your YouTube link here]`
+**YouTube presentation link:** `https://www.youtube.com/watch?v=Ok3lVEWlxA0`
 
 ---
 
